@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi panel</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="contenedor contenedor--panel">
+    <div class="encabezado-panel">
+      <div>
+        <div class="marca">Plataforma Educativa</div>
+        <h1 style="margin-bottom:0;">Mi panel</h1>
+      </div>
+      <span class="chip-rol" id="chipRol">Invitado</span>
+    </div>
+
+    <!-- Banner visible solo para el rol Invitado -->
+    <div class="banner-activacion" id="bannerActivacion">
+      <p>Completa tus datos reales para habilitar tu cuenta de Alumno.</p>
+      <button id="btnCompletarPerfil">Completar perfil</button>
+    </div>
+
+    <h2 style="font-size:1.1rem;">Catálogo de cursos gratuitos</h2>
+    <div class="rejilla-cursos" id="rejillaCursos"></div>
+  </div>
+
+  <!-- Modal de aviso al intentar inscribirse siendo Invitado -->
+  <div class="fondo-modal" id="fondoModal">
+    <div class="modal">
+      <h2>Cuenta no activada</h2>
+      <p>Para inscribirte a las clases debes activar tu cuenta completando tu perfil.</p>
+      <div class="acciones-modal">
+        <button id="btnCerrarModal">Ahora no</button>
+        <button id="btnCompletarDesdeModal">Completar perfil</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
