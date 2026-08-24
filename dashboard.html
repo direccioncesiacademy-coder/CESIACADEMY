@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi panel · Plataforma Educativa</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            violeta: { 50: '#f5f3ff', 500: '#6d28d9', 600: '#5b21b6' },
+            azul: { 500: '#2563eb', 600: '#1d4ed8' },
+          },
+          fontFamily: {
+            jakarta: ['"Plus Jakarta Sans"', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="min-h-screen">
+
+  <div class="max-w-5xl mx-auto px-6 py-10">
+
+    <!-- Cabecera -->
+    <header class="flex flex-wrap items-center justify-between gap-4 mb-8">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-violeta-500 to-azul-500 flex items-center justify-center text-white shadow-lg shadow-violeta-500/30 shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-6 h-6">
+            <path d="M12 3 1 8l11 5 9-4.09V17h2V8L12 3Z" fill="currentColor"/>
+            <path d="M5 10.18v3.64c0 1.5 3.13 3.18 7 3.18s7-1.68 7-3.18v-3.64l-7 3.18-7-3.18Z" fill="currentColor" opacity=".7"/>
+          </svg>
+        </div>
+        <div>
+          <p class="text-[11px] font-semibold tracking-widest uppercase text-violeta-500">Plataforma Educativa</p>
+          <h1 class="font-jakarta text-xl font-bold text-slate-900 leading-tight">Mi panel</h1>
+        </div>
+      </div>
+
+      <span class="chip-rol" id="chipRol">Invitado</span>
+    </header>
+
+    <!-- Banner de activación (solo visible para el rol Invitado, controlado por dashboard.js) -->
+    <div class="banner-activacion" id="bannerActivacion">
+      <div class="banner-texto">
+        <span class="banner-icono">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-6 h-6 text-white">
+            <circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M4.5 20c0-3.6 3.4-6 7.5-6s7.5 2.4 7.5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M18 3.5v4M16 5.5h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <div>
+          <strong>¡Activa tu cuenta de alumno!</strong>
+          <p>Completa tus datos reales para desbloquear la inscripción a los cursos.</p>
+        </div>
+      </div>
+      <button id="btnCompletarPerfil">Completar perfil →</button>
+    </div>
+
+    <!-- Catálogo -->
+    <div class="flex items-baseline justify-between mb-4">
+      <h2 class="font-jakarta text-lg font-bold text-slate-900">Catálogo de cursos gratuitos</h2>
+      <span class="text-sm text-slate-400">Explora y elige tu próximo curso</span>
+    </div>
+
+    <div class="rejilla-cursos" id="rejillaCursos"></div>
+  </div>
+
+  <!-- Modal de aviso al intentar inscribirse siendo Invitado -->
+  <div class="fondo-modal" id="fondoModal">
+    <div class="modal">
+      <div class="modal-icono">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-6 h-6">
+          <rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M8 11V7.5a4 4 0 0 1 8 0V11" stroke="currentColor" stroke-width="1.8"/>
+        </svg>
+      </div>
+      <h2>Cuenta no activada</h2>
+      <p>Para inscribirte a las clases debes activar tu cuenta completando tu perfil.</p>
+      <div class="acciones-modal">
+        <button id="btnCerrarModal">Ahora no</button>
+        <button id="btnCompletarDesdeModal">Completar perfil</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crear cuenta · Plataforma Educativa</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            violeta: { 50: '#f5f3ff', 500: '#6d28d9', 600: '#5b21b6' },
+            azul: { 500: '#2563eb', 600: '#1d4ed8' },
+          },
+          fontFamily: {
+            jakarta: ['"Plus Jakarta Sans"', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="min-h-screen flex items-center justify-center p-6">
+
+  <main class="w-full max-w-md bg-white/90 backdrop-blur rounded-3xl shadow-2xl shadow-violeta-500/10 ring-1 ring-black/5 p-8 sm:p-10 relative overflow-hidden">
+    <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-violeta-500 to-azul-500"></div>
+
+    <div class="flex items-center gap-3 mb-9">
+      <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-violeta-500 to-azul-500 flex items-center justify-center text-white shadow-lg shadow-violeta-500/30 shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-6 h-6">
+          <path d="M12 3 1 8l11 5 9-4.09V17h2V8L12 3Z" fill="currentColor"/>
+          <path d="M5 10.18v3.64c0 1.5 3.13 3.18 7 3.18s7-1.68 7-3.18v-3.64l-7 3.18-7-3.18Z" fill="currentColor" opacity=".7"/>
+        </svg>
+      </div>
+      <div>
+        <p class="font-jakarta font-bold text-slate-900 leading-tight">Plataforma Educativa</p>
+        <p class="text-[11px] font-semibold tracking-widest uppercase text-violeta-500">Nueva cuenta</p>
+      </div>
+    </div>
+
+    <h1 class="font-jakarta text-2xl font-bold text-slate-900 mb-1.5">Crea tu cuenta</h1>
+    <p class="text-sm text-slate-500 mb-8">Te daremos un código de identificación único para iniciar sesión.</p>
+
+    <form id="formRegistro" class="flex flex-col gap-5">
+      <div>
+        <label for="email" class="block text-sm font-semibold text-slate-700 mb-1.5">Correo electrónico</label>
+        <div class="relative">
+          <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-5 h-5">
+              <rect x="3" y="5" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.7"/>
+              <path d="m4 6.5 8 6 8-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <input
+            type="email"
+            id="email"
+            required
+            autocomplete="email"
+            class="w-full rounded-xl border border-slate-200 bg-slate-50 focus:bg-white pl-11 pr-4 py-3 text-sm font-medium outline-none focus:ring-2 focus:ring-violeta-500 focus:border-violeta-500 transition"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label for="password" class="block text-sm font-semibold text-slate-700 mb-1.5">Contraseña</label>
+        <div class="relative">
+          <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-5 h-5">
+              <rect x="4" y="10.5" width="16" height="9.5" rx="2.2" stroke="currentColor" stroke-width="1.7"/>
+              <path d="M7.5 10.5V7.5a4.5 4.5 0 0 1 9 0v3" stroke="currentColor" stroke-width="1.7"/>
+            </svg>
+          </span>
+          <input
+            type="password"
+            id="password"
+            required
+            minlength="8"
+            autocomplete="new-password"
+            class="w-full rounded-xl border border-slate-200 bg-slate-50 focus:bg-white pl-11 pr-4 py-3 text-sm font-medium outline-none focus:ring-2 focus:ring-violeta-500 focus:border-violeta-500 transition"
+          />
+        </div>
+        <p class="mt-1.5 text-xs text-slate-400">Mínimo 8 caracteres.</p>
+      </div>
+
+      <p class="mensaje-error" id="mensajeError"></p>
+
+      <button
+        type="submit"
+        id="btnRegistrar"
+        class="w-full rounded-xl bg-gradient-to-r from-violeta-500 to-azul-500 hover:from-violeta-600 hover:to-azul-600 text-white font-semibold text-sm py-3.5 shadow-lg shadow-violeta-500/30 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 disabled:opacity-70 disabled:hover:translate-y-0"
+      >
+        Registrarme
+      </button>
+    </form>
+
+    <!-- Tarjeta "boarding pass" con el código generado -->
+    <div class="tarjeta-codigo" id="tarjetaCodigo">
+      <div class="etiqueta">Tu código de identificación</div>
+      <div class="codigo" id="codigoGenerado">ALU-00000</div>
+      <div class="linea-punteada"></div>
+      <p class="nota">
+        Guarda este código: lo necesitarás junto a tu contraseña para iniciar sesión.
+        También te lo hemos enviado por correo.
+      </p>
+      <button
+        id="btnIrLogin"
+        class="w-full rounded-xl bg-gradient-to-r from-violeta-500 to-azul-500 hover:from-violeta-600 hover:to-azul-600 text-white font-semibold text-sm py-3 shadow-lg shadow-violeta-500/30 hover:-translate-y-0.5 transition-all duration-200"
+      >
+        Ir a iniciar sesión
+      </button>
+    </div>
+
+    <p class="enlace-secundario mt-7 text-center text-sm text-slate-500">
+      ¿Ya tienes cuenta?
+      <a href="login.html" class="font-semibold text-violeta-500 hover:text-violeta-600 hover:underline">Inicia sesión</a>
+    </p>
+  </main>
+
+  <script src="js/register.js"></script>
+</body>
+</html>

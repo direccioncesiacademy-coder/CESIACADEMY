@@ -1,0 +1,418 @@
+/* ============================================================
+   Plataforma Educativa — Bloque 1
+   Hoja de estilos complementaria a Tailwind CSS (CDN).
+   Aquí solo viven:
+     1) Tokens compartidos (variables de color/radio/sombra)
+     2) Fondo decorativo de la plataforma
+     3) Estilos de los elementos que login.js / register.js /
+        dashboard.js generan o controlan por CLASE, para que
+        esos archivos JS no necesiten tocarse.
+   ============================================================ */
+
+:root {
+  --violeta: #6d28d9;
+  --violeta-fuerte: #5b21b6;
+  --azul: #2563eb;
+  --azul-claro: #3b82f6;
+  --tinta: #1e1b2e;
+  --gris: #64748b;
+  --fondo: #f5f6fb;
+  --borde: #e6e8f2;
+  --ambar: #f59e0b;
+  --ambar-fuerte: #d97706;
+  --sombra-marca: 0 20px 40px -18px rgba(109, 40, 217, 0.25);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background-color: var(--fondo);
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  color: var(--tinta);
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+}
+
+.font-jakarta { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; }
+.font-mono-code { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+/* --- Fondo decorativo: manchas difuminadas violeta/azul --- */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  z-index: -1;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.35;
+  pointer-events: none;
+}
+body::before {
+  width: 480px;
+  height: 480px;
+  top: -160px;
+  left: -140px;
+  background: radial-gradient(circle at 30% 30%, #c4b5fd, transparent 70%);
+}
+body::after {
+  width: 520px;
+  height: 520px;
+  bottom: -200px;
+  right: -160px;
+  background: radial-gradient(circle at 70% 70%, #93c5fd, transparent 70%);
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; }
+}
+
+/* ============================================================
+   Mensajes de error (login.js / register.js)
+   ============================================================ */
+.mensaje-error {
+  display: none;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+}
+.mensaje-error.visible {
+  display: flex;
+  animation: fadeSlideUp 0.25s ease;
+}
+.mensaje-error::before {
+  content: '⚠';
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+/* ============================================================
+   Tarjeta "boarding pass" con el código generado (register.js)
+   ============================================================ */
+.tarjeta-codigo {
+  display: none;
+  position: relative;
+  margin-top: 1.75rem;
+  padding: 1.75rem 1.75rem 1.5rem;
+  border-radius: 1.25rem;
+  text-align: center;
+  overflow: hidden;
+  background: linear-gradient(155deg, #f5f3ff 0%, #eef2ff 55%, #eff6ff 100%);
+  border: 1px solid #ddd6fe;
+  box-shadow: var(--sombra-marca);
+}
+.tarjeta-codigo.visible {
+  display: block;
+  animation: popIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tarjeta-codigo::before,
+.tarjeta-codigo::after {
+  content: '';
+  position: absolute;
+  top: 6.1rem;
+  width: 22px;
+  height: 22px;
+  border-radius: 9999px;
+  background: var(--fondo);
+  box-shadow: inset 0 0 0 1px #ddd6fe;
+}
+.tarjeta-codigo::before { left: -11px; }
+.tarjeta-codigo::after { right: -11px; }
+
+.tarjeta-codigo .etiqueta {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--violeta);
+}
+
+.tarjeta-codigo .codigo {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 2.35rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  margin: 0.6rem 0;
+  background: linear-gradient(90deg, var(--violeta), var(--azul));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.tarjeta-codigo .linea-punteada {
+  border-top: 2px dashed #c4b5fd;
+  margin: 1.1rem 0 1.25rem;
+}
+
+.tarjeta-codigo .nota {
+  font-size: 0.85rem;
+  color: var(--gris);
+  line-height: 1.5;
+  margin: 0 0 1.5rem;
+}
+
+/* ============================================================
+   Chip de rol (dashboard.js -> #chipRol)
+   ============================================================ */
+.chip-rol {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.85rem;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #ede9fe, #dbeafe);
+  color: var(--violeta-fuerte);
+  border: 1px solid #ddd6fe;
+}
+.chip-rol::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--violeta);
+}
+
+/* ============================================================
+   Banner de activación de cuenta (rol Invitado)
+   dashboard.js alterna style.display 'flex' / 'none'
+   ============================================================ */
+.banner-activacion {
+  position: relative;
+  overflow: hidden;
+  display: none; /* dashboard.js lo cambia a 'flex' si el rol es invitado */
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  padding: 1.5rem 1.75rem;
+  border-radius: 1.25rem;
+  background: linear-gradient(120deg, #f59e0b 0%, #f97316 55%, #ec4899 130%);
+  box-shadow: 0 18px 35px -15px rgba(245, 158, 11, 0.55);
+  color: #fff;
+  animation: fadeSlideUp 0.4s ease;
+}
+.banner-activacion::before,
+.banner-activacion::after {
+  content: '';
+  position: absolute;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.18);
+  filter: blur(2px);
+}
+.banner-activacion::before { width: 120px; height: 120px; top: -60px; right: 40px; }
+.banner-activacion::after { width: 70px; height: 70px; bottom: -35px; right: 140px; }
+
+.banner-activacion .banner-texto {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.banner-activacion .banner-icono {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(4px);
+}
+.banner-activacion strong {
+  display: block;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+}
+.banner-activacion p {
+  margin: 0.15rem 0 0;
+  font-size: 0.87rem;
+  color: rgba(255, 255, 255, 0.92);
+}
+.banner-activacion button {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  white-space: nowrap;
+  background: #fff;
+  color: #d9480f;
+  border: none;
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 0.75rem 1.35rem;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  box-shadow: 0 8px 18px -6px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.banner-activacion button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 22px -6px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================================
+   Rejilla y tarjetas de cursos (dashboard.js)
+   ============================================================ */
+.rejilla-cursos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1.25rem;
+}
+
+.tarjeta-curso {
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 1.1rem;
+  padding: 1.4rem;
+  box-shadow: 0 1px 2px rgba(30, 27, 46, 0.04);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.tarjeta-curso:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 30px -16px rgba(76, 29, 149, 0.28);
+  border-color: #ddd6fe;
+}
+.tarjeta-curso h3 {
+  margin: 0 0 1.1rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--tinta);
+  line-height: 1.35;
+}
+.tarjeta-curso button {
+  width: 100%;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(90deg, var(--violeta), var(--azul));
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  box-shadow: 0 10px 18px -10px rgba(37, 99, 235, 0.6);
+}
+.tarjeta-curso button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 22px -10px rgba(37, 99, 235, 0.65);
+}
+.tarjeta-curso button:disabled {
+  background: #e2e4ec;
+  color: #94a0b8;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ============================================================
+   Modal "Cuenta no activada" (dashboard.js -> #fondoModal)
+   ============================================================ */
+.fondo-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(30, 27, 46, 0.55);
+  backdrop-filter: blur(3px);
+}
+.fondo-modal.visible {
+  display: flex;
+  animation: fadeSlideUp 0.2s ease;
+}
+
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 1.4rem;
+  padding: 2rem 1.9rem 1.9rem;
+  text-align: center;
+  box-shadow: 0 30px 60px -20px rgba(30, 27, 46, 0.45);
+  animation: popIn 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.modal .modal-icono {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 1.1rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ede9fe, #dbeafe);
+  color: var(--violeta);
+}
+
+.modal h2 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 0.6rem;
+  color: var(--tinta);
+}
+
+.modal p {
+  font-size: 0.9rem;
+  color: var(--gris);
+  line-height: 1.55;
+  margin: 0 0 1.6rem;
+}
+
+.modal .acciones-modal {
+  display: flex;
+  gap: 0.7rem;
+}
+
+.modal .acciones-modal button {
+  flex: 1;
+  border: none;
+  border-radius: 0.8rem;
+  padding: 0.8rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.modal .acciones-modal button:first-child {
+  background: #f3f4f8;
+  color: var(--gris);
+  border: 1px solid var(--borde);
+}
+.modal .acciones-modal button:first-child:hover {
+  background: #e9eaf2;
+}
+
+.modal .acciones-modal button:last-child {
+  background: linear-gradient(90deg, var(--violeta), var(--azul));
+  color: #fff;
+  box-shadow: 0 10px 20px -10px rgba(37, 99, 235, 0.6);
+}
+.modal .acciones-modal button:last-child:hover {
+  transform: translateY(-2px);
+}
