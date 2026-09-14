@@ -1,6 +1,20 @@
 // ==========================================
 // CESI ACADEMY - APLICACIÓN PRINCIPAL v3
 // ==========================================
+// Verificar autenticación
+firebase.auth().onAuthStateChanged(user => {
+    if(!user) {
+        console.log("No autenticado, redirigiendo a login");
+        window.location.href = 'login.html';
+    } else {
+        console.log("✅ Usuario autenticado:", user.email);
+        // Inicializar la app solo si está autenticado
+        window.app = new CESIApp();
+    }
+});
+
+
+
 
 class CESIApp {
     constructor() {
