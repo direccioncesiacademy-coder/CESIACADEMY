@@ -128,6 +128,18 @@
     <div class="container">
         <!-- HEADER -->
         <header>
+            <button onclick="logout()" style="background: #ff6b6b; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">
+    🚪 Salir
+</button>
+
+<script>
+function logout() {
+    firebase.auth().signOut().then(() => {
+        console.log("✅ Sesión cerrada");
+        window.location.href = 'login.html';
+    });
+}
+</script>
             <div>
                 <h1><i class="fas fa-graduation-cap"></i> CESI Academy</h1>
                 <p>Sistema de Gestión Integral - Departamentos, Tareas, Reuniones y Asistencia v3.0</p>
